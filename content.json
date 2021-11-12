@@ -1,0 +1,33 @@
+{
+	"geeko": {"img": "images/geeko.bmp"},
+	"hello-url": {"url": "https://raw.githubusercontent.com/mak3r/MatrixPortalBilboardContent/main/hello.json"},
+	"text1": {
+		"text" : "howdy",
+		"bg": "0x800020",
+		"fg_color": "0x777777"
+	},
+	"rancher": {"img": "images/rancher.bmp"},
+	"scroll-url": {"url": "https://raw.githubusercontent.com/mak3r/MatrixPortalBillboardContent/main/scroll.json"},
+	"scroll-text": {
+		"stext" : "scroll this by me",
+		"bg": "0x800020",
+		"fg_color": "0xAAAAAA",
+		"rate" : ".2"	
+	},
+	"wrap-example": {
+		"text" : "wrap text\nexample",
+		"fg_color" : "0x982200",
+		"bg" : "0x000000"
+	},
+	"file-bg-example": {
+		"text" : "GEEKO",
+		"fg_color" : "0xFFFFFF",
+		"bg" : "images/geeko.bmp"
+	},
+	"in-meeting": {
+		"text": "IN A\nMEETING",
+		"fg_color" : "0xFF11BB",
+		"bg" : "0x000000"
+	}
+
+}
