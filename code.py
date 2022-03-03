@@ -22,12 +22,12 @@ displayio.release_displays()
 
 # --- Display setup ---
 matrixportal = MatrixPortal(status_neopixel=board.NEOPIXEL, debug=False, bit_depth=5)
-network = matrixportal.network
-network.connect()
+#network = matrixportal.network
+#network.connect()
 
 # Initialize a requests object with a socket and esp32spi interface
-socket.set_interface(network._wifi.esp)
-requests.set_socket(socket, network._wifi.esp)
+#socket.set_interface(network._wifi.esp)
+#requests.set_socket(socket, network._wifi.esp)
 
 class Billboard:
 
@@ -52,7 +52,7 @@ class Billboard:
         print("Content for display: ", self.content)
 
         self.text_index = matrixportal.add_text(
-            text_font=terminalio.FONT, #"fonts/Arial-12.bdf", 
+            text_font=terminalio.FONT, #"fonts/Arial-12.bdf", #
             text_position=((matrixportal.graphics.display.width // 2), (matrixportal.graphics.display.height // 2) - 1),
             scrolling=False,
             text_anchor_point=(.5,.5) # This centers the text (approximately)
@@ -152,12 +152,12 @@ class Billboard:
     def load_text(self, msg, *, text_color="0x000000", bg="0x10BA08"):
         matrixportal.set_background(bg)
         matrixportal.set_text(msg, self.text_index)
-        matrixportal.set_text_color(int(text_color,16))
+        matrixportal.set_text_color(int(text_color,16), 0)
 
     def load_stext(self, msg, *, text_color="0x000000", bg="0x10BA08"):
         matrixportal.set_background(bg)
         matrixportal.set_text(msg, self.stext_index)
-        matrixportal.set_text_color(int(text_color,16))
+        matrixportal.set_text_color(int(text_color,16), 1)
 
 # Setup the billboard
 billboard = Billboard('content.json')
