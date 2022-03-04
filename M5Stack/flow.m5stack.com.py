@@ -8,8 +8,8 @@ setScreenColor(0x111111)
 
 
 duration = None
-json_content = None
 sec_per_min = None
+json_content = None
 next_message = None
 brightness = None
 bg_R = None
@@ -29,7 +29,7 @@ circle0 = M5Circle(25, 24, 12, 0xFFFFFF, 0xFFFFFF)
 
 # Describe this function...
 def init():
-  global duration, json_content, sec_per_min, next_message, brightness, bg_R, bg_G, bg_B, cur_message, text_R, text_G, text_B, default_message
+  global duration, sec_per_min, json_content, next_message, brightness, bg_R, bg_G, bg_B, cur_message, text_R, text_G, text_B, default_message
   json_content = {'msg':'from json'}
   sec_per_min = 60
   duration = 0
@@ -45,7 +45,7 @@ def init():
 
 # Describe this function...
 def flash_led():
-  global duration, json_content, sec_per_min, next_message, brightness, bg_R, bg_G, bg_B, cur_message, text_R, text_G, text_B, default_message
+  global duration, sec_per_min, json_content, next_message, brightness, bg_R, bg_G, bg_B, cur_message, text_R, text_G, text_B, default_message
   for count in range(10):
     M5Led.on()
     wait_ms(100)
@@ -54,7 +54,7 @@ def flash_led():
 
 
 def buttonA_wasPressed():
-  global duration, json_content, sec_per_min, next_message, brightness, bg_R, bg_G, bg_B, cur_message, text_R, text_G, text_B, default_message
+  global duration, sec_per_min, json_content, next_message, brightness, bg_R, bg_G, bg_B, cur_message, text_R, text_G, text_B, default_message
   axp.setLcdBrightness(100)
   next_message = json_content['msg']
   message.setText(str(next_message))
@@ -63,18 +63,8 @@ def buttonA_wasPressed():
   pass
 btnA.wasPressed(buttonA_wasPressed)
 
-def buttonB_wasPressed():
-  global duration, json_content, sec_per_min, next_message, brightness, bg_R, bg_G, bg_B, cur_message, text_R, text_G, text_B, default_message
-  duration = 15 * sec_per_min
-  lcd.circle(110, 30, 10, color=0x33ff33)
-  lcd.arc(25, 24, 15, 4, 0, 90, color=0xcc0000)
-  cur_message = default_message
-  message.setText(str(cur_message))
-  pass
-btnB.wasPressed(buttonB_wasPressed)
-
 def buttonA_wasDoublePress():
-  global duration, json_content, sec_per_min, next_message, brightness, bg_R, bg_G, bg_B, cur_message, text_R, text_G, text_B, default_message
+  global duration, sec_per_min, json_content, next_message, brightness, bg_R, bg_G, bg_B, cur_message, text_R, text_G, text_B, default_message
   if brightness == 0:
     brightness = 100
   else:
@@ -82,6 +72,16 @@ def buttonA_wasDoublePress():
   axp.setLcdBrightness(brightness)
   pass
 btnA.wasDoublePress(buttonA_wasDoublePress)
+
+def buttonB_wasPressed():
+  global duration, sec_per_min, json_content, next_message, brightness, bg_R, bg_G, bg_B, cur_message, text_R, text_G, text_B, default_message
+  duration = 15 * sec_per_min
+  lcd.circle(110, 30, 10, color=0x33ff33)
+  lcd.arc(25, 24, 15, 4, 0, 90, color=0xcc0000)
+  cur_message = default_message
+  message.setText(str(cur_message))
+  pass
+btnB.wasPressed(buttonB_wasPressed)
 
 
 init()
