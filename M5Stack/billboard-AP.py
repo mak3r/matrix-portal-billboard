@@ -7,7 +7,9 @@ import socket
 
 ap = network.WLAN(network.AP_IF)
 ap.active(True)
-ap.config(essid="billboard", password="0000")
+ap.config(essid='billboard')
+ap.config(authmode=3, password='00001111')
+print ('AP Configured')
 
 while ap.active() == False:
   pass
@@ -114,6 +116,14 @@ setScreenColor((bg_R << 16) | (bg_G << 8) | bg_B)
 message.setColor((text_R << 16) | (text_G << 8) | text_B)
 message.setText(str(next_message))
 while True:
+  conn, addr = s.accept()
+  print('Got a connection from %s' % str(addr))
+  request = conn.recv(1024)
+  print('Content = %s' % str(request))
+  response = web_page()
+  conn.send(response)
+  conn.close()
+  
   wait(3)
   if next_message != cur_message:
     cur_message = next_message
@@ -122,12 +132,3 @@ while True:
     message.setText(str(cur_message))
   wait_ms(2)
 
-
-while True:
-  conn, addr = s.accept()
-  print('Got a connection from %s' % str(addr))
-  request = conn.recv(1024)
-  print('Content = %s' % str(request))
-  response = web_page()
-  conn.send(response)
-  conn.close()
