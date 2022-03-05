@@ -3,7 +3,16 @@ from m5ui import *
 from uiflow import *
 import time
 import network
-import socket
+try:
+  import usocket as socket
+except:
+  import socket
+
+import esp
+esp.osdebug(None)
+
+import gc
+gc.collect()
 
 ap = network.WLAN(network.AP_IF)
 ap.active(True)
@@ -25,6 +34,7 @@ def web_page():
     <body><h1>Hello, Billboard!</h1></body>
   </html>
   """
+  return html
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind(('', 80))
@@ -119,16 +129,20 @@ while True:
   conn, addr = s.accept()
   print('Got a connection from %s' % str(addr))
   request = conn.recv(1024)
-  print('Content = %s' % str(request))
+  request = str(request)
+  print('Content = %s' % request)
   response = web_page()
-  conn.send(response)
+  conn.send('HTTP/1.1 200 OK\n')
+  conn.send('Content-Type: text/html\n')
+  conn.send('Connection: close\n\n')
+  conn.sendall(response)
   conn.close()
   
-  wait(3)
-  if next_message != cur_message:
-    cur_message = next_message
-    setScreenColor((bg_R << 16) | (bg_G << 8) | bg_B)
-    message.setColor((text_R << 16) | (text_G << 8) | text_B)
-    message.setText(str(cur_message))
-  wait_ms(2)
+#   wait(3)
+#   if next_message != cur_message:
+#     cur_message = next_message
+#     setScreenColor((bg_R << 16) | (bg_G << 8) | bg_B)
+#     message.setColor((text_R << 16) | (text_G << 8) | text_B)
+#     message.setText(str(cur_message))
+#   wait_ms(2)
 
